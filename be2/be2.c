@@ -107,21 +107,29 @@ int compare(void *a, void *b) {
 }
 
 void bubble(tList *list, int (*fctCmp)(void *, void *)) {
-  tNode *current = list->first;
-  tNode *next = NULL;
-  tNode *tmp = NULL;
-  int *tempvar = NULL;
-  while (current != NULL) {
-    tmp = current;
-    while (tmp->next != NULL) // travel till the second last element
-    {
-      if ((*fctCmp)(current->item, current->next->item) == 1) {
-        tmp->item = tmp->next->item;
-        tmp->next->item = tempvar;
+  tNode **head = &(list->first);
+
+  int done = 0;
+
+  while (!done) {
+    tNode **pv = head;
+    tNode *nd = *head;
+    tNode *nx = (*head)->next;
+
+    done = 1;
+
+    while (nx) {
+      if (fctCmp(nd->item, nx->item) > 0) {
+        nd->next = nx->next;
+        nx->next = nd;
+        *pv = nx;
+
+        done = 0;
       }
-      tmp = tmp->next; // move to the next element
+      pv = &nd->next;
+      nd = nx;
+      nx = nx->next;
     }
-    current = current->next; // move to the next node
   }
 
   printf("After sorting : \n");
@@ -140,7 +148,7 @@ void main() {
   applyFunctionToList(myList, printElement);
 
   bubble(myList, compare);
-  //   deleteNode(myList, myList->first->next->next);
+  // deleteNode(myList, myList->first->next->next);
   freeList(myList);
 
   exit(0);
