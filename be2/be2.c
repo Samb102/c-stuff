@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define nbIntegers 10
+
 struct TNODE {
   void *item;
   struct TNODE *next;
@@ -29,8 +30,8 @@ void freeList(tList *list) {
     free(current);
     current = tmp;
   }
+  free(tmp);
 
-  free(list->first);
   free(list);
 }
 
