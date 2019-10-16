@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define nbIntegers 10
-
 struct TNODE {
   void *item;
   struct TNODE *next;
@@ -101,10 +100,10 @@ void deleteNode(tList *list, tNode *nodeToDelete) {
 }
 
 int compare(void *a, void *b) {
-  int intA = *((int *)a);
-  int intB = *((int *)b);
+  int int_a = *((int *)a);
+  int int_b = *((int *)b);
 
-  return (intA > intB) - (intA < intB);
+  return (int_a > int_b) - (int_a < int_b);
 }
 
 void bubble(tList *list, int (*fctCmp)(void *, void *)) {
